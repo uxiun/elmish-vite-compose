@@ -1,0 +1,6 @@
+
+[*.fs]
+indent_size = 2
+fsharp_multiline_bracket_style = stroustrup
+fsharp_multi_line_lambda_closing_newline = true
+fsharp_keep_max_number_of_blank_lines = 1
