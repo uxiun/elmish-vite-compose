@@ -30,7 +30,10 @@ let private button (msg: Msg) (dispatch: Types.Msg -> unit) : ReactElement =
                 style.height (length.em 2)
                 style.borderRadius (length.percent 22) ]
           prop.text text
-          prop.onClick (fun _ -> dispatch { Counter = msg }) ]
+          prop.onClick (fun _ ->
+              dispatch
+                  { Types.MsgDefault with
+                      Counter = Some msg }) ]
 
 
 let render (state: State) (dispatch: Types.Msg -> unit) =

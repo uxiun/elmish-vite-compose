@@ -6,7 +6,6 @@
 	"type": "module",
 	"scripts": {
 		"restore": "dotnet tool restore",
-		"preinstall": "dotnet tool install",
 		"dev": "dotnet fable watch src --lang ts --run vite",
 		"build": "dotnet fable src --run vite build",
 		"preview": "dotnet fable src --run vite preview",
