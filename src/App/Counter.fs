@@ -6,16 +6,16 @@ open Feliz
 
 type State = int
 
-type Msg = Types.Counter
+type Msg = Root.Msg.Counter
 
 let init () = 0
 
-let upd (msg: Msg) (state: State) : State =
+let update (msg: Msg) (state: State) : State =
     match msg with
     | Msg.Increment -> state + 1
     | Msg.Decrement -> state - 1
 
-let private button (msg: Msg) (dispatch: Types.Msg -> unit) : ReactElement =
+let private button (msg: Msg) (dispatch: Root.Msg -> unit) : ReactElement =
     let text =
         match msg with
         | Msg.Increment -> "+"
@@ -32,11 +32,11 @@ let private button (msg: Msg) (dispatch: Types.Msg -> unit) : ReactElement =
           prop.text text
           prop.onClick (fun _ ->
               dispatch
-                  { Types.MsgDefault with
+                  { Root.MsgDefault with
                       Counter = Some msg }) ]
 
 
-let render (state: State) (dispatch: Types.Msg -> unit) =
+let render (state: State) (dispatch: Root.Msg -> unit) =
     Html.div
         [ prop.style
               [ style.backgroundColor "salmon"
