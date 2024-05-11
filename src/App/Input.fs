@@ -4,20 +4,20 @@ open Feliz
 open Elmish
 open Elmish.React
 
-let tryParseInt (s: string) : Root.Validated<int> =
+let tryParseInt (s: string) : Model.Validated<int> =
   try
-    Root.Validated.success s (int s)
+    Model.Validated.success s (int s)
   with _ ->
-    Root.Validated.failure s
+    Model.Validated.failure s
 
-let validatedTextColor (validated: Root.Validated<_>) =
+let validatedTextColor (validated: Model.Validated<_>) =
   match validated.Parsed with
   | Some _ -> color.green
   | _ -> color.crimson
 
-type State = Root.State.Input
+type State = Model.State.Input
 
-type Msg = Root.Msg.Input
+type Msg = Model.Msg.Input
 
 let update (msg: Msg) (state: State) : State =
   match msg with
@@ -26,7 +26,7 @@ let update (msg: Msg) (state: State) : State =
   | Msg.SetStr s -> { state with Str = s }
   | Msg.SetCapitalized k -> { state with Capitalized = k }
 
-let render (state: State) (dispatch: Root.Msg -> unit) : ReactElement =
+let render (state: State) (dispatch: Model.Msg -> unit) : ReactElement =
   Html.div [
     Html.h1 "Calculator"
     Html.div [
@@ -36,10 +36,7 @@ let render (state: State) (dispatch: Root.Msg -> unit) : ReactElement =
         Html.input [
           prop.type'.number
           prop.onChange (fun s ->
-            dispatch {
-              Root.MsgDefault with
-                  Input = tryParseInt s |> Msg.SetBuiltInNumberInput |> Some
-            }
+            dispatch { Model.MsgDefault with Input = tryParseInt s |> Msg.SetBuiltInNumberInput |> Some }
           )
           prop.valueOrDefault state.BuiltInNumber.Raw
         ]
@@ -54,10 +51,7 @@ let render (state: State) (dispatch: Root.Msg -> unit) : ReactElement =
 
         Html.input [
           prop.onChange (fun s ->
-            dispatch {
-              Root.MsgDefault with
-                  Input = tryParseInt s |> Msg.SetNumberInput |> Some
-            }
+            dispatch { Model.MsgDefault with Input = tryParseInt s |> Msg.SetNumberInput |> Some }
           )
           prop.valueOrDefault state.Int.Raw
         ]
@@ -74,12 +68,7 @@ let render (state: State) (dispatch: Root.Msg -> unit) : ReactElement =
       Html.label [
         Html.span "Str"
         Html.input [
-          prop.onChange (fun s ->
-            dispatch {
-              Root.MsgDefault with
-                  Input = s |> Msg.SetStr |> Some
-            }
-          )
+          prop.onChange (fun s -> dispatch { Model.MsgDefault with Input = s |> Msg.SetStr |> Some })
 
           prop.valueOrDefault state.Str
         ]
@@ -88,12 +77,7 @@ let render (state: State) (dispatch: Root.Msg -> unit) : ReactElement =
       Html.label [
         Html.span "Capitalize"
         Html.input [
-          prop.onChange (fun k ->
-            dispatch {
-              Root.MsgDefault with
-                  Input = Some(Msg.SetCapitalized k)
-            }
-          )
+          prop.onChange (fun k -> dispatch { Model.MsgDefault with Input = Some(Msg.SetCapitalized k) })
           prop.type'.checkbox
           prop.isChecked state.Capitalized
         ]

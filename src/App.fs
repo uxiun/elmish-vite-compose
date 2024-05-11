@@ -3,25 +3,20 @@
 open Feliz
 open Elmish
 open Elmish.React
-open Root
+
+open Util
+open Helper
+open Model
 
 let init () = StateDefault
 
 let rec update (msg: Msg) (state: State) : State =
 
   match msg.Counter with
-  | Some counter ->
-    update { msg with Counter = None } {
-      state with
-          Counter = Counter.update counter state.Counter
-    }
+  | Some counter -> update { msg with Counter = None } { state with Counter = Counter.update counter state.Counter }
   | None ->
     match msg.Input with
-    | Some m ->
-      update { msg with Input = None } {
-        state with
-            Input = Input.update m state.Input
-      }
+    | Some m -> update { msg with Input = None } { state with Input = Input.update m state.Input }
     | None -> state
 
 // let update (msg: Msg) (state: State) : State =

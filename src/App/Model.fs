@@ -1,13 +1,25 @@
-module Root
+module Model
 
-type Validated<'t> = { Raw: string; Parsed: Option<'t> }
+type Validated<'t> = {
+  Raw: string
+  Parsed: Option<'t>
+}
 
 module Validated =
-  let empty () : Validated<_> = { Raw = ""; Parsed = None }
+  let empty () : Validated<_> = {
+    Raw = ""
+    Parsed = None
+  }
 
-  let success r v = { Raw = r; Parsed = Some v }
+  let success r v = {
+    Raw = r
+    Parsed = Some v
+  }
 
-  let failure r = { Raw = r; Parsed = None }
+  let failure r = {
+    Raw = r
+    Parsed = None
+  }
 
 module Msg =
 
@@ -51,4 +63,7 @@ type Msg = {
   Input: Option<Msg.Input>
 }
 
-let MsgDefault = { Counter = None; Input = None }
+let MsgDefault = {
+  Counter = None
+  Input = None
+}

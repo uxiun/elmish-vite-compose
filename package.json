@@ -5,12 +5,13 @@
 	"main": "Program.fs.js",
 	"type": "module",
 	"scripts": {
-		"restore": "dotnet tool restore",
+		"restore": "dotnet tool restore && dotnet paket restore",
 		"dev": "dotnet fable watch src --lang ts --run vite",
 		"build": "dotnet fable src --run vite build",
 		"preview": "dotnet fable src --run vite preview",
 		"start": "vite",
 		"fable": "dotnet fable src --lang ts",
+		"clean": "dotnet fable clean src --lang ts",
 		"watch": "dotnet fable watch src --lang ts",
 		"tsc": "tsc"
 	},
