@@ -7,7 +7,7 @@
 	"scripts": {
 		"restore": "dotnet tool restore && dotnet paket restore",
 		"dev": "dotnet fable watch src --lang ts --run vite",
-		"build": "dotnet fable src --run vite build",
+		"build": "dotnet fable src --lang ts --run vite build",
 		"preview": "dotnet fable src --run vite preview",
 		"start": "vite",
 		"fable": "dotnet fable src --lang ts",
